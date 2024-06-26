@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+void main(){
 int batteryIsOk(float temperature, float soc, float chargeRate) 
 {
     int isTemperatureOk = (temperature >= 0 && temperature <= 45);
@@ -17,6 +17,6 @@ int batteryIsOk(float temperature, float soc, float chargeRate)
     }
 
     return (isTemperatureOk && isSocOk && isChargeRateOk);
-}
+}}
 
 
