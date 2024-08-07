@@ -1,44 +1,50 @@
 #include <stdio.h>
 #include <assert.h>
-
-
-int batteryTempCheck(float temperature)
-{
-    if(temperature < 0 || temperature > 45)
+#include <stdbool.h>
+ 
+static bool IsTempOk(float temperature)
     {
-        printf("Temperature out of range!\n");
-        return 0;
+         if(temperature < 0 || temperature > 45) {
+            printf("Temperature is out of range!");
+            return false;
+        }
+        else 
+        {
+             printf("Temperature is within Range");
+            return true;
+        }
     }
-}
-
-int batterySocCheck(float soc)
-{
-    if(soc < 20 || soc > 80)
+    static bool IsSOCOk(float soc)
     {
-        printf("State of Charge out of range!\n");
-        return 0;
-     }
-}
-
-int batterychargeRateCheck(float chargeRate)
-{
-    if(chargeRate > 0.8) 
-    {
-        printf("Charge Rate out of range!\n");
-        return 0;
+         if(soc < 20 || soc > 80)
+         {
+            printf("State of Charge is out of range!");
+            return false;
+         }
+        else  
+        {
+             printf("State of Charge is within Range");
+             return true;
+        }
     }
-}
-
-int batteryIsOk(float temperature, float soc, float chargeRate) 
-{
-  int returnVal = 1;
-  returnVal &= batteryTempCheck(temperature);
-  returnVal &= batterySocCheck(soc);
-  returnVal &= batterychargeRateCheck(chargeRate);
-  return returnVal;
- //return (batteryTempCheck(temperature) && batterySocCheck(soc) && batterychargeRateCheck(chargeRate) );
-}
-
+    static bool IsChargeRateOk(float chargeRate)
+    {
+        if(chargeRate > 0.8) {
+            printf("Charge Rate is out of range!");
+            return false;
+        }
+        else 
+        {
+            printf("Charge Rate is within Range");
+             return true;
+        }
+    }
+    static bool batteryIsOk(float temperature, float soc, float chargeRate) {
+         bool tempok =IsTempOk(temperature);
+         bool socok =IsSOCOk(soc);
+         bool chargerateok =IsChargeRateOk(chargeRate);        
+        return tempok && socok && chargerateok;
+    }
 int main() {
   assert(batteryIsOk(25, 70, 0.7));
   assert(!batteryIsOk(50, 85, 0));
